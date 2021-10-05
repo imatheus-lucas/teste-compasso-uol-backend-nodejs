@@ -3,7 +3,6 @@ import { app } from '@shared/infra/http/app'
 
 import {
     clearTypeOrmConnection,
-    closeTypeOrmConnection,
     createTypeOrmConnection
 } from '@shared/infra/typeorm'
 

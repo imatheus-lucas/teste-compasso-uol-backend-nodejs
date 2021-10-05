@@ -1,6 +1,6 @@
 import City from '../../infra/typeorm/entities/City'
 import ICreateCityDTO from '../../dtos/ICreateCityDTO'
-import { uuid } from 'uuidv4'
+import { v4 } from 'uuid'
 export interface ICitiesRepository {
     getCities(): Promise<City[]>
     getCity(id: number): Promise<City>
@@ -24,7 +24,7 @@ class CitiesRepositoryMock implements ICitiesRepository {
     public async createCity(data: ICreateCityDTO): Promise<City> {
         const city = new City()
 
-        Object.assign(city, { id: uuid() }, data)
+        Object.assign(city, { id: v4() }, data)
         await city.validate()
         this.cities.push(city)
 
