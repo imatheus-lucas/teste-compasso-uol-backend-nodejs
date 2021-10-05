@@ -21,7 +21,7 @@ describe('Cities Controller', () => {
             name: 'São Paulo',
             state: 'SP'
         })
-        console.log(response.body)
+
         expect(response.status).toBe(201)
     })
 })
