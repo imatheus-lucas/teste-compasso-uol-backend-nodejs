@@ -22,6 +22,7 @@
         "pg": "^8.7.1",
         "reflect-metadata": "^0.1.13",
         "typeorm": "^0.2.38",
+        "uuidv4": "^6.2.12",
         "yup": "^0.32.9"
     },
     "devDependencies": {

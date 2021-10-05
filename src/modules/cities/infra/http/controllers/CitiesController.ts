@@ -1,6 +1,6 @@
 import CitiesRepository from '@modules/cities/repositories/CitiesRepository'
 import CreateCityService from '@modules/cities/services/CreateCityService'
-import HttpError from '@shared/errors/HttpError'
+
 import { Request, Response } from 'express'
 class CitiesController {
     public async create(request: Request, response: Response) {
@@ -13,7 +13,7 @@ class CitiesController {
             state
         })
 
-        return response.json(city)
+        return response.status(201).json(city)
     }
 }
 
