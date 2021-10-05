@@ -3,9 +3,6 @@ import express, { Request, Response, NextFunction } from 'express'
 import HttpError from '@shared/errors/HttpError'
 import routes from './routes'
 
-import { createTypeOrmConnection } from '../typeorm'
-
-createTypeOrmConnection()
 const app = express()
 
 app.use(cors())
