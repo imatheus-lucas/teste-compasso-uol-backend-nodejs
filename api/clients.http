@@ -1,0 +1,10 @@
+POST http://localhost:3333/v1/clients HTTP/1.1
+content-type: application/json
+
+{
+    "name": "John doe",
+    "genrer": "M",
+    "bird_date": "12/04/2020",
+    "years_old": 20,
+    "cityId":1  
+}
