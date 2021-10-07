@@ -15,8 +15,8 @@ afterAll(async () => {
 })
 
 describe('Cities Controller', () => {
-    it('should be able to create a new user', async () => {
-        const response = await request(app).post('/v1/city').send({
+    it('should be able to create a new city', async () => {
+        const response = await request(app).post('/v1/cities').send({
             name: 'São Paulo',
             state: 'SP'
         })

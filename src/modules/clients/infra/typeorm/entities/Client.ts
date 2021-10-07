@@ -1,3 +1,4 @@
+import EntityValidation from '@shared/infra/typeorm/validations/EntityValidation'
 import {
     Entity,
     Column,
@@ -5,13 +6,15 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     OneToOne,
-    JoinColumn
+    JoinColumn,
+    ManyToOne
 } from 'typeorm'
 import { Length, validate as classValidator } from 'class-validator'
-import HttpError from '@shared/errors/HttpError'
 
-@Entity('cities')
-export default class City {
+import City from '@modules/cities/infra/typeorm/entities/City'
+
+@Entity('clients')
+export default class Client extends EntityValidation {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
@@ -21,7 +24,7 @@ export default class City {
 
     @Length(1, 1)
     @Column({ type: 'char', length: '1' })
-    genre: string
+    genrer: string
 
     @Column({ type: 'timestamp' })
     birth_date: Date
@@ -29,8 +32,7 @@ export default class City {
     @Column({ type: 'numeric' })
     years_old: Number
 
-    @OneToOne(() => City)
-    @JoinColumn()
+    @ManyToOne(() => City, citites => citites.id)
     city: City
 
     @CreateDateColumn()
@@ -38,11 +40,4 @@ export default class City {
 
     @UpdateDateColumn()
     updated_at: Date
-
-    async validate(): Promise<void> {
-        const errors = await classValidator(this)
-        if (errors.length > 0) {
-            throw new HttpError('Invalid client data', 400)
-        }
-    }
 }

@@ -6,7 +6,7 @@ import { CreateCityValidation } from '../validations/CreateCityValidations'
 const citiesRoutes = Router()
 
 citiesRoutes.post(
-    '/city',
+    '/cities',
     ValidateMiddleware(CreateCityValidation),
     CitiesController.create
 )

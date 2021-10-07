@@ -25,7 +25,7 @@ class CitiesRepositoryMock implements ICitiesRepository {
         const city = new City()
 
         Object.assign(city, { id: v4() }, data)
-        await city.validate()
+        await city.validate('error in validate city data')
         this.cities.push(city)
 
         return city

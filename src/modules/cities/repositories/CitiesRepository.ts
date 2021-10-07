@@ -4,7 +4,7 @@ import ICreateCityDTO from '../dtos/ICreateCityDTO'
 import City from '../infra/typeorm/entities/City'
 export interface ICitiesRepository {
     getCities(): Promise<City[]>
-    getCity(id: number): Promise<City>
+    getCity(id: string): Promise<City>
     createCity(data: ICreateCityDTO): Promise<City>
 }
 
@@ -20,13 +20,13 @@ class CitiesRepository implements ICitiesRepository {
         return cities
     }
 
-    public async getCity(id: number): Promise<City | undefined> {
+    public async getCity(id: string): Promise<City | undefined> {
         const city = await this.ormRepository.findOne(id)
         return city
     }
     public async createCity(data: ICreateCityDTO): Promise<City> {
         const city = this.ormRepository.create(data)
-        await city.validate()
+        await city.validate('error validation city data')
         const newCity = await this.ormRepository.save(data)
         return newCity
     }
