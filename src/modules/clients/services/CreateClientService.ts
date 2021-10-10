@@ -16,7 +16,7 @@ class CreateClientService {
         try {
             const city = await this.citiesRepository.getCityById(data.cityId)
             if (!city) {
-                throw new Error('City not found')
+                throw new HttpError('City not found', 404)
             }
             const newClient = await this.clientRepository.createClient({
                 ...data,

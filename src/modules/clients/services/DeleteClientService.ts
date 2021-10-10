@@ -6,7 +6,7 @@ class DeleteClientService {
     public async execute(clientId: string): Promise<boolean> {
         const client = await this.clientsRepository.getClientById(clientId)
         if (!client) {
-            throw new HttpError('Client not found')
+            throw new HttpError('Client not found', 404)
         }
         await this.clientsRepository.deleteClient(client.id)
         return true

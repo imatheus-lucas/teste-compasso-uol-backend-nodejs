@@ -17,12 +17,11 @@ class CitiesController {
         return response.status(201).json(city)
     }
 
-    //city by name and state
     public async show(request: Request, response: Response) {
-        const { name, state } = request.query as { name: string; state: string }
+        const data = request.query
 
         const cityRepository = new CitiesRepository()
-        const city = await cityRepository.findByNameAndState(name, state)
+        const city = await cityRepository.findByNameAndState(data)
         if (!city) {
             throw new HttpError('City not found', 404)
         }

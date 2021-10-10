@@ -29,20 +29,14 @@ class CitiesRepository implements ICitiesRepository {
         const newCity = await this.ormRepository.save(data)
         return newCity
     }
-    public async findByNameAndState(
-        name: string,
-        state: string
-    ): Promise<City | undefined> {
-        //like
-        const city = await this.ormRepository.findOne({
-            where: [
-                {
-                    name: Like(`%${name}%`)
-                },
-                {
-                    state: Like(`%${name}%`)
-                }
-            ]
+    public async findByNameAndState(data: {
+        name?: string
+        state?: string
+    }): Promise<City[] | undefined> {
+        const city = await this.ormRepository.find({
+            where: {
+                ...data
+            }
         })
 
         return city

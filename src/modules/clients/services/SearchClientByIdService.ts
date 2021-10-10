@@ -7,7 +7,7 @@ class SearchClientByIdService {
     public async execute(clientId: string): Promise<Client> {
         const client = await this.clientsRepository.getClientById(clientId)
         if (!client) {
-            throw new HttpError('Client not found')
+            throw new HttpError('Client not found', 404)
         }
 
         return client

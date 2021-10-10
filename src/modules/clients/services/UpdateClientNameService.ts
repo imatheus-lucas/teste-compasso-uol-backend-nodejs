@@ -7,7 +7,7 @@ class UpdateClientNameService {
     public async execute(clientId: string, name: string): Promise<Client> {
         const existClient = await this.clientsRepository.getClientById(clientId)
         if (!existClient) {
-            throw new HttpError('Client not found')
+            throw new HttpError('Client not found', 404)
         }
         const client = await this.clientsRepository.updateClientName(
             clientId,

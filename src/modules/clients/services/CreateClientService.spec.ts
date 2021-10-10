@@ -1,5 +1,6 @@
 import CitiesRepositoryMock from '@modules/cities/repositories/mocks/CitiesRepositoryMock'
 import CreateCityService from '@modules/cities/services/CreateCityService'
+import HttpError from '@shared/errors/HttpError'
 
 import ClientRepositoryMock from '../repositories/mock/ClientRepositoryMock'
 import CreateClientService from './CreateClientService'
@@ -33,5 +34,21 @@ describe('create client service', () => {
         })
 
         expect(client).toHaveProperty('id')
+    })
+    it('should validation error occur due to missing data or invalid data', async () => {
+        const city = await createCityService.execute({
+            name: 'São Paulo',
+            state: 'SP'
+        })
+
+        await expect(
+            createClientService.execute({
+                name: 'John doe',
+                genrer: 'Masculino',
+                birth_date: '12/04/1978',
+                years_old: 20,
+                cityId: city.id
+            })
+        ).rejects.toBeInstanceOf(HttpError)
     })
 })

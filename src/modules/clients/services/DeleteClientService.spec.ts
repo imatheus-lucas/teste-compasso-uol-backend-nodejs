@@ -1,5 +1,6 @@
 import CitiesRepositoryMock from '@modules/cities/repositories/mocks/CitiesRepositoryMock'
 import CreateCityService from '@modules/cities/services/CreateCityService'
+import HttpError from '@shared/errors/HttpError'
 
 import ClientRepositoryMock from '../repositories/mock/ClientRepositoryMock'
 import CreateClientService from './CreateClientService'
@@ -44,5 +45,10 @@ describe('Delete client service', () => {
         const deletedClient = await deleteClientService.execute(client.id)
 
         expect(deletedClient).toBeTruthy()
+    })
+    it('should be error in delete client ', async () => {
+        await expect(deleteClientService.execute('123')).rejects.toBeInstanceOf(
+            HttpError
+        )
     })
 })

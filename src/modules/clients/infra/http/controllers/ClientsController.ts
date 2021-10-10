@@ -38,7 +38,7 @@ class ClientsController {
             cityId
         })
 
-        return response.json(client)
+        return response.status(201).json(client)
     }
     public async destroy(
         request: Request,
