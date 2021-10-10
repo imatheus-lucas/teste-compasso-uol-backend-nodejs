@@ -4,7 +4,6 @@ import ICreateClientDTO from '../dtos/ICreateClientDTO'
 import Client from '../infra/typeorm/entities/Client'
 
 export interface IClientRepository {
-    getClients(): Promise<Client[]>
     getClientById(id: string): Promise<Client>
     createClient(data: ICreateClientDTO): Promise<Client>
     deleteClient(id: string): Promise<void>
@@ -18,12 +17,7 @@ class ClientRepository implements IClientRepository {
         this.ormRepository = getRepository(Client)
     }
     public async deleteClient(id: string): Promise<void> {
-        await this.ormRepository.softDelete(id)
-    }
-
-    public async getClients(): Promise<Client[]> {
-        const clients = await this.ormRepository.find()
-        return clients
+        await this.ormRepository.delete(id)
     }
 
     public async getClientById(id: string): Promise<Client | undefined> {

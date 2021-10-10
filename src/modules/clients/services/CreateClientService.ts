@@ -1,4 +1,6 @@
-import CitiesRepository from '@modules/cities/repositories/CitiesRepository'
+import CitiesRepository, {
+    ICitiesRepository
+} from '@modules/cities/repositories/CitiesRepository'
 import HttpError from '@shared/errors/HttpError'
 import ICreateClientDTO from '../dtos/ICreateClientDTO'
 import Client from '../infra/typeorm/entities/Client'
@@ -7,7 +9,7 @@ import { IClientRepository } from '../repositories/ClientRepository.ts'
 class CreateClientService {
     constructor(
         private clientRepository: IClientRepository,
-        private citiesRepository: CitiesRepository
+        private citiesRepository: ICitiesRepository
     ) {}
 
     async execute(data: ICreateClientDTO): Promise<Client> {

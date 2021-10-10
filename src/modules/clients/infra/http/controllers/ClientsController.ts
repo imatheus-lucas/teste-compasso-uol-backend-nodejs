@@ -4,6 +4,7 @@ import CreateClientService from '@modules/clients/services/CreateClientService'
 import DeleteClientService from '@modules/clients/services/DeleteClientService'
 import SearchClientByIdService from '@modules/clients/services/SearchClientByIdService'
 import UpdateClientNameService from '@modules/clients/services/UpdateClientNameService'
+import HttpError from '@shared/errors/HttpError'
 import { Request, Response } from 'express'
 
 class ClientsController {
@@ -17,6 +18,7 @@ class ClientsController {
 
         return response.json(client)
     }
+
     public async create(
         request: Request,
         response: Response
