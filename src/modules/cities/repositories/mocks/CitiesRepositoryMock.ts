@@ -3,7 +3,7 @@ import ICreateCityDTO from '../../dtos/ICreateCityDTO'
 import { v4 } from 'uuid'
 export interface ICitiesRepository {
     getCities(): Promise<City[]>
-    getCity(id: number): Promise<City>
+    getCityById(id: string): Promise<City>
     createCity(data: ICreateCityDTO): Promise<City>
 }
 
@@ -14,7 +14,7 @@ class CitiesRepositoryMock implements ICitiesRepository {
         return this.cities
     }
 
-    public async getCity(id: number): Promise<City | undefined> {
+    public async getCityById(id: string): Promise<City | undefined> {
         const findCities = this.cities.find(
             city => String(city.id) === String(id)
         )

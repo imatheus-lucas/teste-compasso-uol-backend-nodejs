@@ -5,6 +5,6 @@ export default interface ICreateClientDTO {
     genrer: string
     birth_date: string
     years_old: number
-    city?: City
     cityId: string
+    city?: City
 }

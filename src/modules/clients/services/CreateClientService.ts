@@ -1,4 +1,5 @@
 import CitiesRepository from '@modules/cities/repositories/CitiesRepository'
+import HttpError from '@shared/errors/HttpError'
 import ICreateClientDTO from '../dtos/ICreateClientDTO'
 import Client from '../infra/typeorm/entities/Client'
 import { IClientRepository } from '../repositories/ClientRepository.ts'
@@ -10,12 +11,19 @@ class CreateClientService {
     ) {}
 
     async execute(data: ICreateClientDTO): Promise<Client> {
-        const city = await this.citiesRepository.getCity(data.cityId)
-        const newClient = await this.clientRepository.createClient({
-            ...data,
-            city
-        })
-        return newClient
+        try {
+            const city = await this.citiesRepository.getCityById(data.cityId)
+            if (!city) {
+                throw new Error('City not found')
+            }
+            const newClient = await this.clientRepository.createClient({
+                ...data,
+                city
+            })
+            return newClient
+        } catch (err) {
+            throw new HttpError(err.message)
+        }
     }
 }
 

@@ -1,10 +1,9 @@
-import HttpError from '@shared/errors/HttpError'
-import { getRepository, Repository } from 'typeorm'
+import { getRepository, Repository, Like } from 'typeorm'
 import ICreateCityDTO from '../dtos/ICreateCityDTO'
 import City from '../infra/typeorm/entities/City'
 export interface ICitiesRepository {
     getCities(): Promise<City[]>
-    getCity(id: string): Promise<City>
+    getCityById(id: string): Promise<City>
     createCity(data: ICreateCityDTO): Promise<City>
 }
 
@@ -20,7 +19,7 @@ class CitiesRepository implements ICitiesRepository {
         return cities
     }
 
-    public async getCity(id: string): Promise<City | undefined> {
+    public async getCityById(id: string): Promise<City | undefined> {
         const city = await this.ormRepository.findOne(id)
         return city
     }
@@ -29,6 +28,24 @@ class CitiesRepository implements ICitiesRepository {
         await city.validate('error validation city data')
         const newCity = await this.ormRepository.save(data)
         return newCity
+    }
+    public async findByNameAndState(
+        name: string,
+        state: string
+    ): Promise<City | undefined> {
+        //like
+        const city = await this.ormRepository.findOne({
+            where: [
+                {
+                    name: Like(`%${name}%`)
+                },
+                {
+                    state: Like(`%${name}%`)
+                }
+            ]
+        })
+
+        return city
     }
 }
 export default CitiesRepository

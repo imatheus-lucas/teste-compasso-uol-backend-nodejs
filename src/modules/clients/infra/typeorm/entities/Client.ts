@@ -32,7 +32,7 @@ export default class Client extends EntityValidation {
     @Column({ type: 'numeric' })
     years_old: Number
 
-    @ManyToOne(() => City, citites => citites.id)
+    @ManyToOne(() => City, city => city.clients)
     city: City
 
     @CreateDateColumn()

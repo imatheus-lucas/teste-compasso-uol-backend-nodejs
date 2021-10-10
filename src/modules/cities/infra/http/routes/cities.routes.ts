@@ -10,5 +10,6 @@ citiesRoutes.post(
     ValidateMiddleware(CreateCityValidation),
     CitiesController.create
 )
+citiesRoutes.get('/cities', CitiesController.show)
 
 export default citiesRoutes
