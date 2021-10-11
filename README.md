@@ -41,11 +41,11 @@ yarn dev
 //http://localhost:3333/v1/clients
 //create new client
 {
-		name: string,
-    genrer: string,
-    birth_date: string,
-    years_old: integer,
-    cityId: string
+		"name": string,
+    "genrer": string,
+    "birth_date": string,
+    "years_old": integer,
+    "cityId": string
 }
 ```
 
@@ -67,7 +67,7 @@ yarn dev
 //update name for client
 
 {
-	name:string
+	"name":string
 }
 ```
 
@@ -78,8 +78,8 @@ yarn dev
 //http://localhost:3333/v1/cities
 //create new city
 {
-		name: string,
-    state: string
+		"name": string,
+    "state": string
 }
 ```
 
