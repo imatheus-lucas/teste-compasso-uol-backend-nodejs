@@ -3,62 +3,49 @@ import { app } from '@shared/infra/http/app'
 
 import {
     clearTypeOrmConnection,
-    createTypeOrmConnection
+    createTypeOrmConnection,
+    closeTypeOrmConnection
 } from '@shared/infra/typeorm'
 
 beforeAll(async () => {
     await createTypeOrmConnection('test')
+    await request(app).post('/v1/cities').send({
+        name: 'São Paulo',
+        state: 'SP'
+    })
 })
 
 afterAll(async () => {
     await clearTypeOrmConnection()
+    await closeTypeOrmConnection()
 })
 
 describe('Cities Controller', () => {
     it('should be able to create a new city', async () => {
         const response = await request(app).post('/v1/cities').send({
-            name: 'São Paulo',
-            state: 'SP'
+            name: 'Belo Horizonte',
+            state: 'BH'
         })
 
         expect(response.status).toBe(201)
     })
-    it('must be searched by name but returns nothing', async () => {
+    it('should must be searched by name', async () => {
         const response = await request(app).get(`/v1/cities`).query({
-            name: 'Belo Horizonte'
+            name: 'São Paulo'
         })
 
         expect(response.status).toBe(200)
-        expect(response.body).toEqual([])
     })
-    it('must be searched by state but returns nothing', async () => {
+    it('should must be searched by state', async () => {
         const response = await request(app).get(`/v1/cities`).query({
-            state: 'BH'
+            name: 'SP'
         })
 
         expect(response.status).toBe(200)
-        expect(response.body).toEqual([])
     })
-    it('should be able search by name', async () => {
-        await request(app).post('/v1/cities').send({
-            name: 'Belo Horizonte',
-            state: 'BH'
-        })
-        const response = await request(app).get(`/v1/cities`).query({
-            name: 'Belo Horizonte'
-        })
+    it('should must be searched without any query string', async () => {
+        const response = await request(app).get(`/v1/cities`)
+
         expect(response.status).toBe(200)
-        expect(response.body[0].name).toBe('Belo Horizonte')
-    })
-    it('should be able search by state', async () => {
-        await request(app).post('/v1/cities').send({
-            name: 'Belo Horizonte',
-            state: 'MG'
-        })
-        const response = await request(app).get(`/v1/cities`).query({
-            state: 'MG'
-        })
-        expect(response.status).toBe(200)
-        expect(response.body[0].state).toBe('MG')
     })
 })

@@ -13,9 +13,10 @@ let createClientService: CreateClientService
 
 let citiesRepository: CitiesRepositoryMock
 let clientRepository: ClientRepositoryMock
+let cityId: string
 
 describe('Delete client service', () => {
-    beforeEach(() => {
+    beforeAll(() => {
         citiesRepository = new CitiesRepositoryMock()
         clientRepository = new ClientRepositoryMock()
 

@@ -4,7 +4,7 @@ import { createConnection, getConnection, getConnectionOptions } from 'typeorm'
 export const createTypeOrmConnection = async (connectionName = 'default') => {
     const connection = await getConnectionOptions(connectionName)
 
-    return createConnection({ ...connection, name: 'default' })
+    return await createConnection({ ...connection, name: 'default' })
 }
 export const closeTypeOrmConnection = async () => {
     return await getConnection().close()
