@@ -36,7 +36,7 @@ yarn dev
 
 ## Rotas cliente
 
-```json
+```js
 //POST
 //http://localhost:3333/v1/clients
 //create new client
@@ -49,19 +49,19 @@ yarn dev
 }
 ```
 
-```json
+```js
 //GET
 //http://localhost:3333/v1/clients/${id}
 //search client by id
 ```
 
-```json
+```js
 //DELETE
 //http://localhost:3333/v1/clients/${id}
 //delete client by id
 ```
 
-```json
+```js
 //PATCH
 //http://localhost:3333/v1/clients/${id}
 //update name for client
@@ -73,7 +73,7 @@ yarn dev
 
 ## Rotas cidades
 
-```json
+```js
 //POST
 //http://localhost:3333/v1/cities
 //create new city
@@ -83,12 +83,11 @@ yarn dev
 }
 ```
 
-```json
+```js
 //GET
 //http://localhost:3333/v1/cities?name=${name}
 //http://localhost:3333/v1/cities?state=${state}
 //search by name or state
-
 ```
 
 ## Tecnolgias
